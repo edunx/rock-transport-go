@@ -2,7 +2,6 @@ package transport
 
 import (
 	"github.com/edunx/lua"
-	pub "github.com/edunx/rock-public-go"
 )
 
 const (
@@ -26,7 +25,7 @@ func CreateTransportProxyUserData(L *lua.LState) int {
 
 	v := &Proxy{
 		info: opt.CheckString("info" , "unkown"),
-		tun: pub.CheckTransportByTable("tunnel" , opt ),
+		tun: CheckTunnelUserDataByTable(L , opt , "tunnel"),
 	}
 
 	ud := L.NewUserDataByInterface( v , TPPROXYMT )
@@ -43,6 +42,5 @@ func ProxySet(L *lua.LState) int {
 	return 0
 }
 
-func (p *Proxy) Push( value []byte ) {
-	p.tun.Push( value )
+func (p *Proxy) Push( data interface{} ) {
 }

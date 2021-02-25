@@ -6,17 +6,21 @@ import (
 
 type Proxy struct {
 	info   string
-	T      int
 	tun    Tunnel
 }
 
-type Tunnel interface {
+type Message interface {
+	Byte() []byte
+}
 
+type Tunnel interface {
 	ToUserData(*lua.LState) *lua.LUserData
 
 	Start() error
 	Close()
 	Reload()
 
+	Type()  string
+	Message() interface{}
 	Push(interface{})
 }
