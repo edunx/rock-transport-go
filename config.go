@@ -1,11 +1,22 @@
 package transport
 
 import (
-	pub "github.com/edunx/rock-public-go"
+	"github.com/edunx/lua"
 )
 
 type Proxy struct {
 	info   string
 	T      int
-	tun    pub.Transport
+	tun    Tunnel
+}
+
+type Tunnel interface {
+
+	ToUserData(*lua.LState) *lua.LUserData
+
+	Start() error
+	Close()
+	Reload()
+
+	Push(interface{})
 }
