@@ -21,6 +21,7 @@ type Tunnel interface {
 	Reload()
 
 	Type()  string
-	Message() interface{}
+	Proxy( string , interface{})
+
 	Push(interface{})
 }
